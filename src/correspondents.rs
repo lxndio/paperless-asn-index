@@ -3,8 +3,8 @@ use serde::Deserialize;
 #[derive(Debug, Deserialize)]
 pub struct Correspondents {
     pub count: u64,
-    pub next: Option<u64>,
-    pub previous: Option<u64>,
+    pub next: Option<String>,
+    pub previous: Option<String>,
     pub all: Vec<u64>,
     pub results: Vec<Correspondent>,
 }

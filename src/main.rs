@@ -132,18 +132,32 @@ async fn show_index(form: web::Json<ShowIndexFormData>) -> Result<Markup> {
     let client = reqwest::Client::new();
 
     // Get correspondents
-    let res = client
-        .get(format!("{}/correspondents/", form.paperless_url))
-        .header("Authorization", format!("Token {}", form.paperless_token))
-        .send()
-        .await
-        .expect("Failed to send request");
+    let mut next = Some(format!("{}/correspondents/", form.paperless_url));
+    let mut correspondents = Vec::new();
 
-    let correspondents = res
-        .json::<Correspondents>()
-        .await
-        .expect("Failed to parse JSON")
-        .results;
+    while let Some(ref url) = next {
+        // Make URL https if it's not
+        let url = if url.starts_with("http://") {
+            url.replacen("http://", "https://", 1)
+        } else {
+            url.to_string()
+        };
+
+        let res = client
+            .get(url)
+            .header("Authorization", format!("Token {}", form.paperless_token))
+            .send()
+            .await
+            .expect("Failed to send request");
+
+        let mut content = res
+            .json::<Correspondents>()
+            .await
+            .expect("Failed to parse JSON");
+
+        next = content.next;
+        correspondents.append(&mut content.results);
+    }
 
     let mut correspondents_map = HashMap::new();
     for correspondent in correspondents {
