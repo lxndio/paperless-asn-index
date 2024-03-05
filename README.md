@@ -12,8 +12,12 @@ If you have the Rust compiler installed on your system, you can simply clone thi
 
 ### Docker
 
-You can use the provided Docker image to run the web app inside of a Docker container.
+You can use the provided Docker image to run the web app inside a Docker container.
+
+```
+docker run -d --name paperless-asn-index -p 8080:8080 ghcr.io/lxndio/paperless-asn-index:latest
+```
 
 ## Warning
 
-This web app is in an early stage of development and is provided "as is" without any warranty under the terms of the attached license.
+This web app is in an early stage of development and is provided “as is” without any warranty under the terms of the attached license.
