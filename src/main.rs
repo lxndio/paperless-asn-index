@@ -165,8 +165,6 @@ async fn show_index(form: web::Json<ShowIndexFormData>) -> Result<Markup> {
             url.to_string()
         };
 
-        println!("URL = {}", url);
-
         let res = client
             .get(url)
             .header("Authorization", format!("Token {}", form.paperless_token))
@@ -194,11 +192,11 @@ async fn show_index(form: web::Json<ShowIndexFormData>) -> Result<Markup> {
     Ok(html! {
         head {
             title { "Paperless ASN Index" }
-            link rel="stylesheet" href="/static/bulma.min.css";
+            link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
         }
         body {
             section class="section" {
-                table class="table is-size-7" {
+                table class="table is-size-7 is-narrow" {
                     thead {
                         tr {
                             @for field in &form.show_fields {
