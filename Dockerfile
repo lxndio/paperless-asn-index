@@ -14,7 +14,7 @@ COPY ./src ./src
 RUN rm ./target/release/deps/paperless_asn_index*
 RUN cargo build --release
 
-FROM rust:slim-buster
+FROM rust:latest
 
 COPY --from=build /paperless-asn-index/target/release/paperless-asn-index .
 COPY ./static ./static
