@@ -7,7 +7,9 @@ $("#form").on("submit", function(event) {
         asn_from: $("#asn_from").val(),
         asn_to: $("#asn_to").val(),
         show_fields: $("#show_fields").val(),
+        group_by: $("#group_by").val(),
         sort_by: $("#sort_by").val(),
+        sort_desc: $("#sort_desc").is(":checked"),
     };
     
     var json = JSON.stringify(formData);
